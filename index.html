@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ProfeLink</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding: top;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #C7C4EE;
+            color: #632664;
+            padding-bottom: 60px;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            background-color: #632664;
+            color: #ffffff;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        header h1 {
+            padding-left: 50px;
+            font-size: 72px;
+            margin-right: 40px;
+        }
+
+        header h2 {
+            padding-left: 55px;
+            font-size: 15px;
+            margin-right: 40px;
+            color: #E86CAC;
+            padding-bottom: 50px;
+        }
+
+        .btnDescargar {
+            background-color: #29B5CC;
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 55px;
+
+        }
+
+        .btnDescargar:hover {
+            background-color: #E86CAC;
+            transform: scale(1.05);
+        }
+
+        .botonesAtajo {
+            position: absolute;
+            right: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+        .botonAtajo {
+            background-color: #29B5CC;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .botonAtajo:hover {
+            background-color: #E86CAC;
+            transform: scale(1.05);
+        }
+
+        .contenedorMockups {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            width: 60%;
+        }
+
+        .mockup {
+            width: 30%;
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+
+        .mockup img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .mockupIzquierda {
+            transform: translateX(-10px) scale(0.95);
+        }
+
+        .mockupDerecha {
+            transform: translateX(10px) scale(0.95);
+        }
+
+        .mockupCentro {
+            transform: translateY(10px) scale(1);
+        }
+
+        .mockupAnimadoIzquierda {
+            opacity: 1;
+            transform: translateX(0) scale(0.95);
+        }
+
+        .mockupAnimadoCentro {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .mockupAnimadoDerecha {
+            opacity: 1;
+            transform: translateX(0) scale(0.95);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .tituloSeccion {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #632664;
+            padding: 40px;
+            top: 40px;
+        }
+
+        .beneficios,
+        .profesores {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            padding: 20px;
+        }
+
+        .tarjeta {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: scale(1.05);
+        }
+
+        .tarjeta img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta h3 {
+            font-size: 20px;
+            color: #29B5CC;
+            margin-bottom: 10px;
+        }
+
+        .tarjeta p {
+            font-size: 16px;
+            color: #632664;
+            padding: 20px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #632664;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #29B5CC;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #E86CAC;
+        }
+
+        .escala {
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .escalaItem {
+            background-color: #ffffff;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .escalaHeader {
+            padding: 15px;
+            cursor: pointer;
+            background-color: #29B5CC;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .escalaContenido {
+            padding: 15px;
+            background-color: #f4f4f4;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .mapa {
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .mapa iframe {
+            width: 100%;
+            height: 400px;
+            max-width: 800px;
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>ProfeLink</h1>
+            <h2>Clases con profesores particulares.</h2>
+            <a href="https://www.figma.com/proto/IYiIxStPiGQNCoqlWSH3yo/APP-PROFESORES-PARTICULARES?node-id=166-1347&node-type=frame&t=s6zUP6ZZssLpsJOf-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=326%3A2367&show-proto-sidebar=1"
+                class="btnDescargar">Descargar App</a>
+        </div>
+        <div class="contenedorMockups">
+            <div class="mockup mockupIzquierda" id="mockup1">
+                <img src="img/Bienvenida.png" alt="Mockup celular 1">
+            </div>
+            <div class="mockup mockupCentro" id="mockup2">
+                <img src="img/Inicio.png" alt="Mockup celular 2">
+            </div>
+            <div class="mockup mockupDerecha" id="mockup3">
+                <img src="img/Calendario.png" alt="Mockup celular 3">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="botonesAtajo">
+            <a href="#nosotros" class="botonAtajo">Nosotros</a>
+            <a href="#ventajas" class="botonAtajo">Ventajas</a>
+            <a href="#profesores" class="botonAtajo">Profesores</a>
+            <a href="#preguntas" class="botonAtajo">Preguntas</a>
+            <a href="#mapa" class="botonAtajo">Mapa</a>
+        </div>
+        <section id="nosotros">
+            <h2 class="tituloSeccion" style="padding-top: 150px;">¿Quiénes somos?</h2>
+            <p style="text-align: center;">En ProfeLink, ofrecemos más que clases, brindamos confianza y calidad.
+                Sabemos lo importante que es tener un apoyo confiable en tu aprendizaje, y por eso contamos con un
+                equipo de profesores altamente capacitados, disponibles para brindarte clases personalizadas, ya sea de
+                manera virtual o a domicilio. Nuestra misión es proporcionar una experiencia educativa de alta calidad,
+                accesible para todos, que te permita alcanzar tus objetivos académicos de manera eficiente y cómoda.</p>
+        </section>
+
+        <section id="ventajas">
+            <h2 class="tituloSeccion">¿Por qué elegir ProfeLink?</h2>
+            <div class="beneficios">
+                <div class="tarjeta">
+                    <h3>Clases a domicilio</h3>
+                    <p>Encuentra profesores cerca de ti para mayor comodidad.</p>
+                </div>
+                <div class="tarjeta">
+                    <h3>Clases virtuales</h3>
+                    <p>Estudia desde casa con la mejor calidad.</p>
+                </div>
+                <div class="tarjeta">
+                    <h3>Accesible y confiable</h3>
+                    <p>Precios justos con profesores especializados.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="profesores">
+            <h2 class="tituloSeccion">Profesores profesionales</h2>
+            <div class="profesores">
+                <div class="tarjeta">
+                    <img src="img/Persona1.svg" alt="Profesor1">
+                    <h3>Estefania López</h3>
+                    <p>Profesor de Matemáticas con 10 años de experiencia en educación secundaria.</p>
+                </div>
+                <div class="tarjeta">
+                    <img src="img/Persona2.svg" alt="Profesor2">
+                    <h3>Delfina Vazquez</h3>
+                    <p>Especialista en Lengua y Literatura, apasionada por la enseñanza personalizada.</p>
+                </div>
+                <div class="tarjeta">
+                    <img src="img/Persona3.svg" alt="Profesor3">
+                    <h3>Carlos López</h3>
+                    <p>Profesor de Historia con un enfoque en el aprendizaje práctico y dinámico.</p>
+                </div>
+            </div>
+        </section>
+        <section id="preguntas">
+            <section class="escala">
+                <h2 class="tituloSeccion">Preguntas Frecuentes</h2>
+                <div class="escalaItem">
+                    <div class="escalaHeader">¿Es gratuita la app?</div>
+                    <div class="escalaContenido">Sí, la app es gratuita para descargar. Ofrecemos algunas
+                        funcionalidades
+                        premium con suscripción.</div>
+                </div>
+                <div class="escalaItem">
+                    <div class="escalaHeader">¿Cómo busco un profesor?</div>
+                    <div class="escalaContenido">Solo debes ingresar tu materia y ubicación, y verás una lista de
+                        profesores
+                        disponibles.</div>
+                </div>
+                <div class="escalaItem">
+                    <div class="escalaHeader">¿Puedo tomar clases virtuales?</div>
+                    <div class="escalaContenido">Sí, puedes elegir entre clases presenciales a domicilio o clases
+                        virtuales
+                        a través de videollamadas.</div>
+                </div>
+            </section>
+
+        </section>
+
+        <section id="mapa">
+            <div class="mapa">
+                <h2 class="tituloSeccion">Encuentra profesores en tu zona</h2>
+                <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-58.47537517547607%2C-34.675250242239745%2C-58.36422777175902%2C-34.582800739365875&layer=mapnik&marker=-34.6296%2C-58.4438"
+                    title="Mapa de Buenos Aires" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </section>
+        <footer>
+            <p>&copy; 2024 ProfeLink. Todos los derechos reservados.</p>
+            <div>
+                <a href="https://www.facebook.com">Facebook</a>
+                <a href="https://www.instagram.com">Instagram</a>
+                <a href="https://x.com/?lang=es">X</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        window.addEventListener('load', function () {
+            const mockup1 = document.getElementById('mockup1');
+            const mockup2 = document.getElementById('mockup2');
+            const mockup3 = document.getElementById('mockup3');
+            mockup1.classList.add('mockupAnimadoIzquierda');
+            mockup2.classList.add('mockupAnimadoCentro');
+            mockup3.classList.add('mockupAnimadoDerecha');
+        });
+
+        const escalas = document.querySelectorAll('.escalaHeader');
+        escalas.forEach(function (escala) {
+            escala.addEventListener('click', function () {
+                const contenido = this.nextElementSibling;
+                contenido.style.display = contenido.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+
+</html>
